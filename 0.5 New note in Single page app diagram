@@ -1,0 +1,22 @@
+browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+activate server
+server-->>browser: HTML document
+deactivate server
+
+browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+activate server
+server-->>browser: css file
+deactivate server
+
+browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+activate server
+server-->>browser: JavaScript file
+deactivate server
+
+event->>browser: creates a new note, adds it to the notes list with the command notes.push(note)
+browser->>browser: rerenders the note list on the page
+activate serve
+browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa 
+header->>server: Request Payload: {content: "single page app does not reload the whole page"}, request headers: Content-type: application/json
+server->>browser: HTTP status code 201 created
+deactivate serve
